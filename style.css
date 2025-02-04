@@ -1,0 +1,134 @@
+/* Clearing */
+*,
+html,
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Tektur", serif;
+}
+
+/* Main Style */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #71BBB2;
+  width: 100vw;
+  height: 100vh;
+}
+
+.container .title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.container .title h1 {
+  font-size: 3rem;
+}
+
+.container .symbols {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.container .symbols .player {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f2f3f4;
+  border-bottom: 3px solid #222;
+  border-radius: 5px;
+  width: 45%;
+  padding: 10px;
+}
+
+.container .symbols #player1 {
+  animation: jedagjedug 1s infinite;
+}
+
+
+.container .symbols #player2 {
+  opacity: .5;
+  transition: opacity .2s;
+}
+
+.container .symbols .player #player1 #player2{
+  width: 10%;
+  height: 50%;
+  border: none;
+  margin-left: 4px;
+}
+
+.container .board {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 300px;
+  border: 2px solid #222;
+  border-radius: 3px;
+}
+
+.container .board .row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 33.4%;
+  width: 100%;
+}
+.container .board .row .box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5rem;
+  height: 100%;
+  width: 33.3%;
+  background-color: #f2f3f4;
+  border: 2px solid #222;
+}
+
+
+.container #result {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 300px;
+  margin-top: 20px;
+  background-color: #71BBB2;
+  color: #222;
+  border: 3px solid #222;
+  border-radius: 3px;
+}
+
+.container #repeat {
+  margin-top: 20px;
+  width: 100px;
+  padding-block: 5px;
+  border: 2px solid #222;
+  border-radius: 3px;
+  display: none;
+  animation: jedagjedug 1s infinite;
+}
+
+/* Animation */
+@keyframes jedagjedug {
+  0% {
+    transform: scale(1);
+  } 
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+}
