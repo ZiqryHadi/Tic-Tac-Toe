@@ -51,10 +51,6 @@ body {
   padding: 10px;
 }
 
-.container .symbols #player1 {
-  animation: jedagjedug 1s infinite;
-}
-
 
 .container .symbols #player2 {
   opacity: .5;

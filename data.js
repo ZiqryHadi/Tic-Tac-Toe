@@ -22,15 +22,20 @@ let board = [
   [" ", " ", " "],
   [" ", " ", " "],
   ]
-  
+
 let count = 0 
 let indexList = []
 let timer = 5
+let sym1 = "<i class='fa-solid fa-x'></i>"
+let sym2 = "<i class='fa-solid fa-o'></i>"
 
+player1.style.opacity = "1"
+player1.style.animation = "jedagjedug 1s"
+player2.style.opacity = ".5"
+player2.style.animation = "none"
+    
 // Called when player hit the box
 function game(row, col, idxBox) {
-  let sym1 = "<i class='fa-solid fa-x'></i>"
-  let sym2 = "<i class='fa-solid fa-o'></i>"
   let player
   
   if (indexList.some(([r, c]) => r === row && c === col)) {
@@ -57,32 +62,32 @@ function game(row, col, idxBox) {
     repeat.style.display = "block"
     player1.style.animation = "none"
     player2.style.animation = "none"
-    for(i = 0; i <= 8; i++) {
-      boxes[i].removeAttribute("onclick")
-    }
+    boxes.forEach((box) => {
+      box.removeAttribute("onclick")
+    })
   }
   
   indexList.push([row, col])
   board[row][col] = player
   boxes[idxBox].innerHTML = player
   
-  winner = checkWinner(board, sym1, sym2)
+  winner = checkWinner(board)
   if (winner == "1") {
     result.innerHTML = "<h2>PLAYER 1 WIN</h2>"
     repeat.style.display = "block"
     player1.style.animation = "none"
     player2.style.animation = "none"
-    for(i = 0; i <= 8; i++) {
-      boxes[i].removeAttribute("onclick")
-    }
+    boxes.forEach((box) => {
+      box.removeAttribute("onclick")
+    })
   } else if (winner == "2") {
     result.innerHTML = "<h2>PLAYER 2 WIN</h2>"
     repeat.style.display = "block"
     player1.style.animation = "none"
     player2.style.animation = "none"
-    for(j = 0; j <= 8; j++) {
-      boxes[j].removeAttribute("onclick")
-    }
+    boxes.forEach((box) => {
+      box.removeAttribute("onclick")
+    })
   }
   
   console.log(count)
@@ -91,41 +96,68 @@ function game(row, col, idxBox) {
 }
 
 // Check if there is a winner
-function checkWinner(board, sym1, sym2) {
-  
+function checkWinner(board) {
+  p1 = "<i class='fa-solid fa-x'></i>"
+  p2 = "<i class='fa-solid fa-o'></i>"
   // Horizontal
   for (i = 0; i < 3; i++) {
-    if (board[i][0] == sym1 && board[i][1] == sym1 && board[i][2] == sym1) {
+    if (board[i][0] == p1 && board[i][1] == p1 && board[i][2] == p1) {
       return "1"
 
     }
-    if (board[i][0] == sym2 && board[i][1] == sym2 && board[i][2] == sym2) {
+    if (board[i][0] == p2 && board[i][1] == p2 && board[i][2] == p2) {
       return "2"
     }
   }
   
   // Vertical
   for (i = 0; i < 3; i++) {
-    if (board[0][i] == sym1 && board[1][i] == sym1 && board[2][i] == sym1) {
+    if (board[0][i] == p1 && board[1][i] == p1 && board[2][i] == p1) {
       return "1"
 
     }
-    if (board[0][i] == sym2 && board[1][i] == sym2 && board[2][i] == sym2) {
+    if (board[0][i] == p2 && board[1][i] == p2 && board[2][i] == p2) {
       return "2"
     }
   }
   
   // Diagonal
-  if (board[0][0] == sym1 && board[1][1] == sym1 && board[2][2] == sym1) {
+  if (board[0][0] == p1 && board[1][1] == p1 && board[2][2] == p1) {
     return "1"
   }
-  else if (board[0][0] == sym2 && board[1][1] == sym2 && board[2][2] == sym2) {
+  else if (board[0][0] == p2 && board[1][1] == p2 && board[2][2] == p2) {
     return "2"
   }
-  else if (board[0][2] == sym1 && board[1][1] == sym1 && board[2][0] == sym1) {
+  else if (board[0][2] == p1 && board[1][1] == p1 && board[2][0] == p1) {
     return "1"
   }
-  else if (board[0][2] == sym2 && board[1][1] == sym2 && board[2][0] == sym2) {
+  else if (board[0][2] == p2 && board[1][1] == p2 && board[2][0] == p2) {
     return "2"
   }
+}
+
+function restart() {
+  symSaved = sym1
+  sym1 = sym2
+  sym2 = symSaved
+  playerSaved = player1
+  player1 = player2
+  player2 = playerSaved
+  player1.style.opacity = "1"
+  player1.style.animation = "jedagjedug 1s infinite"
+  player2.style.opacity = ".5"
+  player2.style.animation = "none"
+  board = [
+  [" ", " ", " "],
+  [" ", " ", " "],
+  [" ", " ", " "],
+  ]
+  indexList = []
+  count = 0
+  result.innerHTML = "<h2> R E S U L T </h2>"
+  repeat.style.display = "none"
+  boxes.forEach((box, idx) => {
+    box.innerHTML = ""
+    box.setAttribute("onclick", `game(${Math.floor(idx / 3)}, ${idx % 3}, ${idx})`);
+  })
 }
